@@ -13,12 +13,9 @@ public class FavoriteProduct {
     private FavoriteProductId id;
 
     @MapsId("userId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @jakarta.validation.constraints.Size(max = 150)
-    @jakarta.validation.constraints.NotNull
     @Column(name = "product_name", nullable = false, length = 150)
     private String productName;
 

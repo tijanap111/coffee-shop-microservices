@@ -15,7 +15,7 @@ public class LoyaltyCard {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -23,7 +23,6 @@ public class LoyaltyCard {
     @Column(name = "points")
     private Integer points;
 
-    @jakarta.validation.constraints.Size(max = 20)
     @ColumnDefault("'BRONZE'")
     @Column(name = "level", length = 20)
     private String level;

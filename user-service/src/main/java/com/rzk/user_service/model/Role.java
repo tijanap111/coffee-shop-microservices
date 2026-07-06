@@ -14,8 +14,6 @@ public class Role {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @jakarta.validation.constraints.Size(max = 50)
-    @jakarta.validation.constraints.NotNull
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 

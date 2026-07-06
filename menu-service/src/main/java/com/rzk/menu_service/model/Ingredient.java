@@ -16,9 +16,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-    @Size(max = 100)
-    @NotNull
+    
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
