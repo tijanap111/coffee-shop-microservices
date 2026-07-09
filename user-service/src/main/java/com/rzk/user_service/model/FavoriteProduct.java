@@ -13,6 +13,7 @@ public class FavoriteProduct {
     private FavoriteProductId id;
 
     @MapsId("userId")
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

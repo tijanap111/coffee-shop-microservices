@@ -19,11 +19,10 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Size(max = 30)
     @ColumnDefault("'RECEIVED'")
     @Column(name = "status", length = 30)
     private String status;
@@ -35,7 +34,6 @@ public class Order {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @Size(max = 255)
     @Column(name = "note")
     private String note;
 

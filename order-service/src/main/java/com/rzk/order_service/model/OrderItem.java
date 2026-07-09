@@ -17,15 +17,14 @@ public class OrderItem {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "snapshot_id")
     private ProductSnapshot snapshot;
 
-    @NotNull
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 

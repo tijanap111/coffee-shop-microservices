@@ -17,13 +17,9 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Size(max = 100)
-    @NotNull
     @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
 
-    @Size(max = 150)
-    @NotNull
     @Column(name = "email", nullable = false, length = 150)
     private String email;
 

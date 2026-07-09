@@ -19,16 +19,12 @@ public class ProductSnapshot {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotNull
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
-    @Size(max = 150)
-    @NotNull
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
-    @NotNull
     @Column(name = "price", nullable = false, precision = 8, scale = 2)
     private BigDecimal price;
 
