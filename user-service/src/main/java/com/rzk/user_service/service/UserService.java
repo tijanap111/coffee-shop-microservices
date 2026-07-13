@@ -7,6 +7,7 @@ import com.rzk.user_service.model.User;
 import com.rzk.user_service.repository.FavoriteProductRepository;
 import com.rzk.user_service.repository.LoyaltyCardRepository;
 import com.rzk.user_service.repository.UserRepository;
+import com.rzk.user_service.security.JwtService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class UserService {
     private final UserRepository ur;
     private final LoyaltyCardRepository lr;
     private final FavoriteProductRepository fr;
+    private final JwtService jwtService;
 
     public List<User> getAll() {
         return ur.findAll();
@@ -59,9 +61,16 @@ public class UserService {
         ur.deleteById(id);
     }
 
-    public boolean login(String email, String password) {
-        Optional<User> user = ur.findByEmail(email);
-        return user.isPresent() && user.get().getPassword().equals(password);
+    public String login(String email, String password) {
+        User user = ur.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        String role = user.getRole() != null ? user.getRole().getName() : "USER";
+        return jwtService.generateToken(user.getId(), user.getEmail(), role);
     }
 
     public Optional<LoyaltyCard> getLCard(Integer userId) {

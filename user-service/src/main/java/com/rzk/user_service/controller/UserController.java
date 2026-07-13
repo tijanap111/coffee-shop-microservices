@@ -54,11 +54,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-        boolean success = us.login(email, password);
-        if (!success) {
+        try {
+            String token = us.login(email, password);
+            return new ResponseEntity<>(token, HttpStatus.OK);
+        } catch (RuntimeException e) {
             return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Login successful", HttpStatus.OK);
     }
 
     @GetMapping("/{id}/loyalty")
