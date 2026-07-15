@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtGatewayFilter implements GlobalFilter, Ordered {
     private static final String SECRET =
-            "coffee_shop_super_secret_key_min_32_characters_long!!!";
+            "coffee-shop-super-secret-key-min-32-characters-long!";
     private final SecretKey key =
             Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     private static final Logger log = LoggerFactory.getLogger(JwtGatewayFilter.class);
@@ -67,6 +67,12 @@ public class JwtGatewayFilter implements GlobalFilter, Ordered {
             String role = claims.get("role", String.class);
             email = (email == null) ? "" : email.trim();
             role = (role == null) ? "" : role.trim();
+
+            if (method == HttpMethod.DELETE && !"ADMIN".equals(role)) {
+                log.debug("FORBIDDEN path={} role={} - DELETE requires ADMIN", path, role);
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
 
             log.debug("JWT OK path={} email={} role={}", path, email, role);
 

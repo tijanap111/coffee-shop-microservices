@@ -1,0 +1,7 @@
+Docker Hub images:
+config-server: https://hub.docker.com/r/tijanap11/config-server
+eureka-server: https://hub.docker.com/r/tijanap11/eureka-server
+menu-service: https://hub.docker.com/r/tijanap11/menu-service
+user-service: https://hub.docker.com/r/tijanap11/user-service
+order-service: https://hub.docker.com/r/tijanap11/order-service
+api-gateway: https://hub.docker.com/r/tijanap11/api-gateway

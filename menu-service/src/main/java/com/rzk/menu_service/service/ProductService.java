@@ -4,6 +4,7 @@ import com.rzk.menu_service.model.Category;
 import com.rzk.menu_service.model.Product;
 import com.rzk.menu_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,6 +61,10 @@ public class ProductService {
     public void delete(Integer id) {
         pr.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: \" + id)"));
-        pr.deleteById(id);
+        try {
+            pr.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalStateException("Cannot delete product " + id + " - it has related ingredients or orders referencing it.");
+        }
     }
 }
