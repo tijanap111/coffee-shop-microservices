@@ -17,12 +17,12 @@ The system follows a microservices architecture with independent, loosely-couple
 
 ## Microservices
 
-- **menu-service** — product catalog, categories, ingredients, availability management
-- **user-service** — users, roles, loyalty program (BRONZE/SILVER/GOLD), favorite products
-- **order-service** — orders, status state machine (RECEIVED → PREPARING → READY → PICKED_UP), automatic price and loyalty points calculation
-- **api-gateway** — system entry point, JWT authentication and role-based authorization
-- **eureka-server** — service discovery
-- **config-server** — centralized configuration (Git-based)
+- **menu-service**
+- **user-service**
+- **order-service**
+- **api-gateway**
+- **eureka-server**
+- **config-server**
 
 ## Features
 
