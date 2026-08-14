@@ -1,0 +1,9 @@
+$kind: http-request
+name: Status READY
+url: http://localhost:8765/ORDER-SERVICE/orders/{id}/status?status=READY
+method: PATCH
+queryParams:
+  status: READY
+auth:
+  type: bearer
+order: 4343279994628491

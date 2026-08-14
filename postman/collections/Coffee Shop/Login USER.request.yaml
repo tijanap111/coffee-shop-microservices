@@ -1,0 +1,9 @@
+$kind: http-request
+name: Login USER
+description: ""
+url: http://localhost:8765/USER-SERVICE/users/login?email=marko@mail.com&password=hashed_password_2
+method: POST
+queryParams:
+  email: marko@mail.com
+  password: hashed_password_2
+order: 1784156512087

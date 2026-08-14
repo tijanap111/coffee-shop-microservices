@@ -1,0 +1,9 @@
+$kind: http-request
+name: Status PICKED_UP
+url: http://localhost:8765/ORDER-SERVICE/orders/{id}/status?status=PICKED_UP
+method: PATCH
+queryParams:
+  status: PICKED_UP
+auth:
+  type: bearer
+order: 4464490882109256

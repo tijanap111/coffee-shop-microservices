@@ -1,0 +1,6 @@
+$kind: http-request
+url: http://localhost:8765/MENU-SERVICE/products/1
+method: DELETE
+auth:
+  type: bearer
+order: 4496138450211468

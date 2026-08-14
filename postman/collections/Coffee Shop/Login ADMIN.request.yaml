@@ -1,0 +1,8 @@
+$kind: http-request
+name: Login ADMIN
+url: http://localhost:8765/USER-SERVICE/users/login?email=ana@mail.com&password=hashed_password_1
+method: POST
+queryParams:
+  email: ana@mail.com
+  password: hashed_password_1
+order: 4497569509474232

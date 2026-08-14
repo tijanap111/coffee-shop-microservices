@@ -1,0 +1,24 @@
+$kind: http-request
+name: Kreiranje narudzbine
+url: http://localhost:8765/ORDER-SERVICE/orders
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"customerId\": 2,\r
+
+    \    \"productQuantities\": {\r
+
+    \        \"1\": 2,\r
+
+    \        \"6\": 1\r
+
+    \    },\r
+
+    \    \"note\": \"Demo\"\r
+
+    }\r\n"
+auth:
+  type: bearer
+order: 2715216685510081
