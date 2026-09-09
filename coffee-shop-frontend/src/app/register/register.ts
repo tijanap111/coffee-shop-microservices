@@ -15,11 +15,11 @@ export class Register implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  registerForma!: FormGroup;
+  registerForm!: FormGroup;
   errorMessage: string = '';
 
   ngOnInit(): void {
-    this.registerForma = this.fb.group({
+    this.registerForm = this.fb.group({
       firstName: this.fb.control(null, [Validators.required, Validators.minLength(2)]),
       lastName: this.fb.control(null, [Validators.required, Validators.minLength(2)]),
       email: this.fb.control(null, [Validators.required, Validators.email]),
@@ -27,30 +27,30 @@ export class Register implements OnInit {
     });
   }
 
-  get getterZaIme() {
-    return this.registerForma.get('firstName');
+  get firstNameControl() {
+    return this.registerForm.get('firstName');
   }
 
-  get getterZaPrezime() {
-    return this.registerForma.get('lastName');
+  get lastNameControl() {
+    return this.registerForm.get('lastName');
   }
 
-  get getterZaEmail() {
-    return this.registerForma.get('email');
+  get emailControl() {
+    return this.registerForm.get('email');
   }
 
-  get getterZaLozinku() {
-    return this.registerForma.get('password');
+  get passwordControl() {
+    return this.registerForm.get('password');
   }
 
   submit(): void {
-    if (this.registerForma.invalid) return;
+    if (this.registerForm.invalid) return;
 
     const request: RegisterRequest = {
-      firstName: this.getterZaIme?.value,
-      lastName: this.getterZaPrezime?.value,
-      email: this.getterZaEmail?.value,
-      password: this.getterZaLozinku?.value,
+      firstName: this.firstNameControl?.value,
+      lastName: this.lastNameControl?.value,
+      email: this.emailControl?.value,
+      password: this.passwordControl?.value,
     };
 
     this.authService.register(request).subscribe({

@@ -76,6 +76,11 @@ public class UserController {
         return new ResponseEntity<>(us.addPoints(id, points), HttpStatus.OK);
     }
 
+    @PostMapping("/loyalty/add-points/by-email")
+    public ResponseEntity<LoyaltyCard> addPointsByEmail(@RequestParam String email, @RequestParam Integer points) {
+        return new ResponseEntity<>(us.addPointsByEmail(email, points), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}/favorites")
     public ResponseEntity<List<FavoriteProduct>> getFavorites(@PathVariable Integer id) {
         return new ResponseEntity<>(us.getFavorites(id), HttpStatus.OK);

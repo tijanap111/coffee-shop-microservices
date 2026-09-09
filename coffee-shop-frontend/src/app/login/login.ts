@@ -15,35 +15,39 @@ export class Login implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  loginForma!: FormGroup;
+  loginForm!: FormGroup;
   errorMessage: string = '';
 
   ngOnInit(): void {
-    this.loginForma = this.fb.group({
+    this.loginForm = this.fb.group({
       email: this.fb.control(null, [Validators.required, Validators.email]),
       password: this.fb.control(null, [Validators.required]),
     });
   }
 
-  get getterZaEmail() {
-    return this.loginForma.get('email');
+  get emailControl() {
+    return this.loginForm.get('email');
   }
 
-  get getterZaLozinku() {
-    return this.loginForma.get('password');
+  get passwordControl() {
+    return this.loginForm.get('password');
   }
 
   submit(): void {
-    if (this.loginForma.invalid) return;
+    if (this.loginForm.invalid) return;
 
     const credentials: LoginRequest = {
-      email: this.getterZaEmail?.value,
-      password: this.getterZaLozinku?.value,
+      email: this.emailControl?.value,
+      password: this.passwordControl?.value,
     };
 
     this.authService.login(credentials).subscribe({
       next: () => {
-        this.router.navigate(['/menu']);
+        if (this.authService.getRole() === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/menu']);
+        }
       },
       error: (err) => {
         this.errorMessage = 'Pogrešan email ili lozinka.';

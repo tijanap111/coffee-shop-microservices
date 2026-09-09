@@ -50,7 +50,13 @@ public class OrderService {
         }
 
         Customer customer = cr.findByEmail(user.getEmail())
-                .orElseThrow(() -> new RuntimeException("Customer not found with email: " + user.getEmail()));
+                .orElseGet(() -> {
+                    Customer newCustomer = new Customer();
+                    newCustomer.setFirstName(user.getFirstName() + " " + user.getLastName());
+                    newCustomer.setEmail(user.getEmail());
+                    newCustomer.setLoyaltyPoints(0);
+                    return cr.save(newCustomer);
+                });
 
         Order order = new Order();
         order.setCustomer(customer);
@@ -102,7 +108,7 @@ public class OrderService {
 
         if ("PICKED_UP".equals(newStatus)) {
             int pointsEarned = order.getTotalPrice().divide(BigDecimal.TEN).intValue();
-            uc.addPoints(order.getCustomer().getId(), pointsEarned);
+            uc.addPointsByEmail(order.getCustomer().getEmail(), pointsEarned);
         }
 
         return or.save(order);
@@ -127,5 +133,11 @@ public class OrderService {
 
     public List<Order> getByStatus(String status) {
         return or.findByStatus(status);
+    }
+
+    public List<Order> getByCustomerEmail(String email) {
+        Customer customer = cr.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Customer not found with email: " + email));
+        return or.findByCustomerId(customer.getId());
     }
 }

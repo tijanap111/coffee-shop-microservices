@@ -1,11 +1,9 @@
 package com.rzk.user_service.service;
 
-import com.rzk.user_service.model.FavoriteProduct;
-import com.rzk.user_service.model.FavoriteProductId;
-import com.rzk.user_service.model.LoyaltyCard;
-import com.rzk.user_service.model.User;
+import com.rzk.user_service.model.*;
 import com.rzk.user_service.repository.FavoriteProductRepository;
 import com.rzk.user_service.repository.LoyaltyCardRepository;
+import com.rzk.user_service.repository.RoleRepository;
 import com.rzk.user_service.repository.UserRepository;
 import com.rzk.user_service.security.JwtService;
 import jakarta.transaction.Transactional;
@@ -21,6 +19,7 @@ public class UserService {
     private final UserRepository ur;
     private final LoyaltyCardRepository lr;
     private final FavoriteProductRepository fr;
+    private final RoleRepository rr;
     private final JwtService jwtService;
 
     public List<User> getAll() {
@@ -32,6 +31,10 @@ public class UserService {
     }
 
     public User register(User user) {
+        Role userRole = rr.findById(2)
+                .orElseThrow(() -> new RuntimeException("Default role not found"));
+        user.setRole(userRole);
+
         User savedUser = ur.save(user);
 
         LoyaltyCard card = new LoyaltyCard();
@@ -88,6 +91,13 @@ public class UserService {
         else card.setLevel("BRONZE");
 
         return lr.save(card);
+    }
+
+    @Transactional
+    public LoyaltyCard addPointsByEmail(String email, Integer points) {
+        User user = ur.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return addPoints(user.getId(), points);
     }
 
     public List<FavoriteProduct> getFavorites(Integer userId) {

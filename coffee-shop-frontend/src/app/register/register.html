@@ -1,11 +1,11 @@
 <div class="container mt-5" style="max-width: 400px;">
   <h2 class="mb-4">Registracija</h2>
 
-  <form [formGroup]="registerForma" (ngSubmit)="submit()">
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
     <div class="mb-3">
       <label class="form-label">Ime</label>
       <input type="text" class="form-control" formControlName="firstName">
-      @if (getterZaIme?.invalid && getterZaIme?.touched) {
+      @if (firstNameControl?.invalid && firstNameControl?.touched) {
         <div class="text-danger">Ime mora imati bar 2 karaktera.</div>
       }
     </div>
@@ -13,7 +13,7 @@
     <div class="mb-3">
       <label class="form-label">Prezime</label>
       <input type="text" class="form-control" formControlName="lastName">
-      @if (getterZaPrezime?.invalid && getterZaPrezime?.touched) {
+      @if (lastNameControl?.invalid && lastNameControl?.touched) {
         <div class="text-danger">Prezime mora imati bar 2 karaktera.</div>
       }
     </div>
@@ -21,7 +21,7 @@
     <div class="mb-3">
       <label class="form-label">Email</label>
       <input type="email" class="form-control" formControlName="email">
-      @if (getterZaEmail?.invalid && getterZaEmail?.touched) {
+      @if (emailControl?.invalid && emailControl?.touched) {
         <div class="text-danger">Unesite validan email.</div>
       }
     </div>
@@ -29,7 +29,7 @@
     <div class="mb-3">
       <label class="form-label">Lozinka</label>
       <input type="password" class="form-control" formControlName="password">
-      @if (getterZaLozinku?.invalid && getterZaLozinku?.touched) {
+      @if (passwordControl?.invalid && passwordControl?.touched) {
         <div class="text-danger">Lozinka mora imati bar 6 karaktera.</div>
       }
     </div>
@@ -38,6 +38,6 @@
       <div class="alert alert-danger">{{ errorMessage }}</div>
     }
 
-    <button type="submit" class="btn btn-primary w-100" [disabled]="registerForma.invalid">Registruj se</button>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Registruj se</button>
   </form>
 </div>

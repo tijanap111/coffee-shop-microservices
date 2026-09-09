@@ -11,4 +11,20 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String email;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

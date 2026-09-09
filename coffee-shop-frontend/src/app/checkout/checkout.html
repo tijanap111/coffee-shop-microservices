@@ -1,0 +1,31 @@
+<app-navbar />
+<div class="container mt-4">
+
+<div class="container mt-4" style="max-width: 500px;">
+  <h2 class="mb-4">Plaćanje</h2>
+
+  <p class="fw-bold">Ukupno za plaćanje: {{ getCartTotal() | currency:'RSD ':'symbol':'1.0-0' }}</p>
+
+  <form [formGroup]="checkoutForm" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label class="form-label">Adresa dostave</label>
+      <input type="text" class="form-control" formControlName="address">
+      @if (addressControl?.invalid && addressControl?.touched) {
+        <div class="text-danger">Adresa mora imati bar 5 karaktera.</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Napomena (opciono)</label>
+      <textarea class="form-control" formControlName="note"></textarea>
+    </div>
+
+    @if (errorMessage) {
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+
+    <button type="submit" class="btn btn-success w-100" [disabled]="checkoutForm.invalid">
+      Potvrdi narudžbinu
+    </button>
+  </form>
+</div>

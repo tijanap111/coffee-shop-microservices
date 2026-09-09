@@ -54,4 +54,9 @@ public class OrderController {
     public ResponseEntity<Order> updateStatus(@PathVariable Integer id, @RequestParam String status) {
         return new ResponseEntity<>(os.updateStatus(id, status), HttpStatus.OK);
     }
+
+    @GetMapping("/customer/email/{email}")
+    public ResponseEntity<List<Order>> getByCustomerEmail(@PathVariable String email) {
+        return new ResponseEntity<>(os.getByCustomerEmail(email), HttpStatus.OK);
+    }
 }

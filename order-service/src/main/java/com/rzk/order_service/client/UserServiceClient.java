@@ -15,4 +15,7 @@ public interface UserServiceClient {
 
     @PostMapping("/users/{id}/loyalty/add-points")
     void addPoints(@PathVariable Integer id, @RequestParam Integer points);
+
+    @PostMapping("/users/loyalty/add-points/by-email")
+    void addPointsByEmail(@RequestParam String email, @RequestParam Integer points);
 }

@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand bg-light px-4 mb-3">
+  <a class="navbar-brand" routerLink="/menu">☕ Coffee Shop</a>
+  <div class="d-flex gap-3 align-items-center">
+    <a routerLink="/menu">Meni</a>
+    <a routerLink="/cart">Korpa</a>
+    <a routerLink="/orders">Moje narudžbine</a>
+    @if (isAdmin()) {
+      <a routerLink="/admin">Admin</a>
+    }
+    <button class="btn btn-outline-danger btn-sm" (click)="logout()">Odjavi se</button>
+  </div>
+</nav>
