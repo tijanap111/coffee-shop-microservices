@@ -1,26 +1,37 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MenuService } from '../service/menu-service';
+import { OrderService } from '../service/order-service';
 import { Product } from '../model/product';
+import { Order } from '../model/order';
 import {Navbar} from '../navbar/navbar';
 
 @Component({
   selector: 'app-admin',
-  imports: [CurrencyPipe, ReactiveFormsModule, Navbar],
+  imports: [CurrencyPipe, DatePipe, ReactiveFormsModule, Navbar],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })
 export class Admin implements OnInit {
   private fb = inject(FormBuilder);
   private menuService = inject(MenuService);
+  private orderService = inject(OrderService);
 
   products = signal<Array<Product>>([]);
+  orders = signal<Array<Order>>([]);
   newProductForm!: FormGroup;
   errorMessage: string = '';
 
+  private nextStatus: { [key: string]: string } = {
+    RECEIVED: 'PREPARING',
+    PREPARING: 'READY',
+    READY: 'PICKED_UP',
+  };
+
   ngOnInit(): void {
     this.loadProducts();
+    this.loadOrders();
 
     this.newProductForm = this.fb.group({
       name: this.fb.control(null, [Validators.required, Validators.minLength(2)]),
@@ -45,6 +56,14 @@ export class Admin implements OnInit {
     });
   }
 
+  loadOrders(): void {
+    this.orderService.getAllOrders().subscribe({
+      next: (data) => {
+        this.orders.set(data);
+      },
+    });
+  }
+
   submit(): void {
     if (this.newProductForm.invalid) return;
 
@@ -61,7 +80,7 @@ export class Admin implements OnInit {
         this.loadProducts();
       },
       error: () => {
-        this.errorMessage = 'Error adding product.';
+        this.errorMessage = 'Greška pri dodavanju proizvoda.';
       },
     });
   }
@@ -83,5 +102,40 @@ export class Admin implements OnInit {
         this.loadProducts();
       },
     });
+  }
+
+  canAdvance(order: Order): boolean {
+    return !!this.nextStatus[order.status];
+  }
+
+  advanceStatus(order: Order): void {
+    const newStatus = this.nextStatus[order.status];
+    if (!newStatus) return;
+
+    this.orderService.updateStatus(order.id, newStatus).subscribe({
+      next: () => {
+        this.loadOrders();
+      },
+    });
+  }
+
+  statusLabel(status: string): string {
+    const labels: { [key: string]: string } = {
+      RECEIVED: 'Primljena',
+      PREPARING: 'Priprema se',
+      READY: 'Spremna',
+      PICKED_UP: 'Preuzeta',
+    };
+    return labels[status] || status;
+  }
+
+  statusBadgeClass(status: string): string {
+    const classes: { [key: string]: string } = {
+      RECEIVED: 'bg-secondary',
+      PREPARING: 'bg-warning',
+      READY: 'bg-info',
+      PICKED_UP: 'bg-success',
+    };
+    return classes[status] || 'bg-secondary';
   }
 }

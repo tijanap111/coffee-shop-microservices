@@ -22,4 +22,12 @@ export class OrderService {
   getOrdersByCustomerEmail(email: string): Observable<Array<Order>> {
     return this.http.get<Array<Order>>(this.apiUrl + '/customer/email/' + email);
   }
+
+  getAllOrders(): Observable<Array<Order>> {
+    return this.http.get<Array<Order>>(this.apiUrl);
+  }
+
+  updateStatus(orderId: number, status: string): Observable<Order> {
+    return this.http.patch<Order>(this.apiUrl + '/' + orderId + '/status?status=' + status, {});
+  }
 }

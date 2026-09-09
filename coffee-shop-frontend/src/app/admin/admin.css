@@ -1,0 +1,24 @@
+.btn-success {
+  background-color: #6b8f47;
+  border-color: #6b8f47;
+}
+
+.btn-success:hover {
+  background-color: #5a7a3a;
+  border-color: #5a7a3a;
+}
+
+.btn-danger {
+  background-color: #a3503f;
+  border-color: #a3503f;
+}
+
+.btn-danger:hover {
+  background-color: #8a4234;
+  border-color: #8a4234;
+}
+
+.btn-secondary {
+  background-color: #9c8b7a;
+  border-color: #9c8b7a;
+}

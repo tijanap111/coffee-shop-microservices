@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url('../public/background.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+nav {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+:root {
+  --bs-primary: #4a3428;
+  --bs-primary-rgb: 74, 52, 40;
+  --bs-link-color: #4a3428;
+  --bs-link-hover-color: #6b4d3a;
+}
+
+a {
+  color: var(--bs-link-color);
+}
+
+a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+.btn-primary {
+  background-color: #4a3428;
+  border-color: #4a3428;
+}
+
+.btn-primary:hover {
+  background-color: #6b4d3a;
+  border-color: #6b4d3a;
+}
+
+.btn-outline-primary {
+  color: #4a3428;
+  border-color: #4a3428;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4a3428;
+  border-color: #4a3428;
+}

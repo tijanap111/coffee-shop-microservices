@@ -1,8 +1,6 @@
 <app-navbar />
 <div class="container mt-4">
-
-<div class="container mt-4">
-  <h2 class="mb-4">Admin — Upravljanje proizvodima</h2>
+  <h2 class="mb-4">Upravljanje proizvodima</h2>
 
   <form [formGroup]="newProductForm" (ngSubmit)="submit()" class="row g-2 mb-4 align-items-end">
     <div class="col-md-3">
@@ -37,7 +35,7 @@
     <tr>
       <th>Naziv</th>
       <th>Cena</th>
-      <th>Dostupnost</th>
+      <th class="text-center">Dostupnost</th>
       <th></th>
     </tr>
     </thead>
@@ -46,13 +44,46 @@
         <tr>
           <td>{{ product.name }}</td>
           <td>{{ product.price | currency:'RSD ':'symbol':'1.0-0' }}</td>
-          <td>
+          <td class="text-center">
             <button class="btn btn-sm" [class]="product.available ? 'btn-success' : 'btn-secondary'" (click)="toggleAvailability(product)">
               {{ product.available ? 'Dostupan' : 'Nedostupan' }}
             </button>
           </td>
           <td>
             <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">Obriši</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h2 class="mb-4 mt-5">Upravljanje narudžbinama</h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Kupac</th>
+      <th>Datum</th>
+      <th>Ukupno</th>
+      <th class="text-center">Status</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (order of orders(); track order.id) {
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.customer.email }}</td>
+          <td>{{ order.createdAt | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ order.totalPrice | currency:'RSD ':'symbol':'1.0-0' }}</td>
+          <td class="text-center"><span class="badge" [class]="statusBadgeClass(order.status)">{{ statusLabel(order.status) }}</span></td>
+          <td>
+            @if (canAdvance(order)) {
+              <button class="btn btn-sm btn-primary" (click)="advanceStatus(order)">
+                Sledeći korak
+              </button>
+            }
           </td>
         </tr>
       }

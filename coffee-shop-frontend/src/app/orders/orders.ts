@@ -66,4 +66,5 @@ export class Orders implements OnInit {
     };
     return classes[status] || 'bg-secondary';
   }
+
 }

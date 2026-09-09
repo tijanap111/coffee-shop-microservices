@@ -1,0 +1,16 @@
+nav {
+  background-color: #4a3428 !important;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: 600;
+}
+
+a {
+  color: #e8dcc8 !important;
+}
+
+a:hover {
+  color: white !important;
+}
