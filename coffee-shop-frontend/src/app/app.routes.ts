@@ -8,6 +8,7 @@ import { Orders } from './orders/orders';
 import { Admin } from './admin/admin';
 import { authGuard } from './guards/auth-guard';
 import { roleGuard } from './guards/role-guard';
+import { Profile } from './profile/profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,4 +19,5 @@ export const routes: Routes = [
   { path: 'checkout', component: Checkout, canActivate: [authGuard] },
   { path: 'orders', component: Orders, canActivate: [authGuard] },
   { path: 'admin', component: Admin, canActivate: [authGuard, roleGuard] },
+  { path: 'profile', component: Profile, canActivate: [authGuard] },
 ];

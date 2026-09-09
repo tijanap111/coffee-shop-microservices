@@ -6,10 +6,11 @@ import { OrderService } from '../service/order-service';
 import { Product } from '../model/product';
 import { Order } from '../model/order';
 import {Navbar} from '../navbar/navbar';
+import { SectionCard } from '../section-card/section-card';
 
 @Component({
   selector: 'app-admin',
-  imports: [CurrencyPipe, DatePipe, ReactiveFormsModule, Navbar],
+  imports: [CurrencyPipe, DatePipe, ReactiveFormsModule, Navbar, SectionCard],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })

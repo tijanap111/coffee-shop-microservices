@@ -1,15 +1,13 @@
-@if (product(); as p) {
-  <div class="card h-100">
-    <div class="card-body d-flex flex-column">
-      <h5 class="card-title">{{ p.name }}</h5>
-      <p class="card-text text-muted">{{ p.description }}</p>
-      <p class="card-text fw-bold">{{ p.price | currency:'RSD':'symbol':'1.0-0' }}</p>
-      <button
-        class="btn btn-primary mt-auto"
-        [disabled]="!p.available"
-        (click)="onAddToCart()">
-        {{ p.available ? 'Dodaj u korpu' : 'Nedostupno' }}
-      </button>
-    </div>
+<div class="card h-100" [ngClass]="{ 'opacity-50': !product().available }">
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title">{{ product().name }}</h5>
+    <p class="card-text text-muted">{{ product().description }}</p>
+    <p class="card-text fw-bold">{{ product().price | currency:'RSD ':'symbol':'1.0-0' }}</p>
+    <button
+      class="btn btn-primary mt-auto"
+      [disabled]="!product().available"
+      (click)="onAddToCart()">
+      {{ product().available ? 'Dodaj u korpu' : 'Nedostupno' }}
+    </button>
   </div>
-}
+</div>

@@ -1,13 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MenuService } from '../service/menu-service';
 import { CartService } from '../service/cart-service';
 import { Product } from '../model/product';
 import { Router } from '@angular/router';
-import {Navbar} from '../navbar/navbar';
+import { Navbar } from '../navbar/navbar';
+import { ProductItem } from '../product-item/product-item';
 
 @Component({
   selector: 'app-menu',
-  imports: [ Navbar ],
+  imports: [Navbar, ProductItem, FormsModule],
   templateUrl: './menu.html',
   styleUrl: './menu.css',
 })
@@ -18,6 +20,10 @@ export class Menu implements OnInit {
 
   products = signal<Array<Product>>([]);
 
+  filterName: string = '';
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+
   ngOnInit(): void {
     this.menuService.getAvailableProducts().subscribe({
       next: (data) => {
@@ -27,6 +33,21 @@ export class Menu implements OnInit {
         console.log('Greška pri učitavanju proizvoda: ' + err);
       },
     });
+  }
+
+  filteredProducts(): Array<Product> {
+    return this.products().filter((p) => {
+      const matchesName = p.name.toLowerCase().includes(this.filterName.toLowerCase());
+      const matchesMin = this.minPrice == null || p.price >= this.minPrice;
+      const matchesMax = this.maxPrice == null || p.price <= this.maxPrice;
+      return matchesName && matchesMin && matchesMax;
+    });
+  }
+
+  resetFilters(): void {
+    this.filterName = '';
+    this.minPrice = null;
+    this.maxPrice = null;
   }
 
   addToCart(product: Product): void {

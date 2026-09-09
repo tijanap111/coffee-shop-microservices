@@ -1,0 +1,55 @@
+<app-navbar />
+<div class="container mt-4" style="max-width: 500px;">
+  <h2 class="mb-4">Moj profil</h2>
+
+  <form #profileForm="ngForm" (ngSubmit)="onSubmit()">
+    <div ngModelGroup="personalInfo" #personalInfo="ngModelGroup">
+      <div class="mb-3">
+        <label class="form-label">Ime</label>
+        <input
+          type="text"
+          class="form-control"
+          name="firstName"
+          [(ngModel)]="user.firstName"
+          #firstName="ngModel"
+          required
+          minlength="2">
+        @if (firstName.invalid && firstName.touched) {
+          <div class="text-danger small">Ime mora imati bar 2 karaktera.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Prezime</label>
+        <input
+          type="text"
+          class="form-control"
+          name="lastName"
+          [(ngModel)]="user.lastName"
+          #lastName="ngModel"
+          required
+          minlength="2">
+        @if (lastName.invalid && lastName.touched) {
+          <div class="text-danger small">Prezime mora imati bar 2 karaktera.</div>
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" [value]="user.email" disabled>
+      <div class="form-text">Email ne može biti promenjen.</div>
+    </div>
+
+    @if (successMessage) {
+      <div class="alert alert-success">{{ successMessage }}</div>
+    }
+    @if (errorMessage) {
+      <div class="alert alert-danger">{{ errorMessage }}</div>
+    }
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="profileForm.invalid">
+      Sačuvaj izmene
+    </button>
+  </form>
+</div>

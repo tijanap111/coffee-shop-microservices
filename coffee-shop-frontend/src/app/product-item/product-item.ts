@@ -1,21 +1,18 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { Product } from '../model/product';
 
 @Component({
   selector: 'app-product-item',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, NgClass],
   templateUrl: './product-item.html',
   styleUrl: './product-item.css',
 })
 export class ProductItem {
-  product = input<Product>();
+  product = input.required<Product>();
   addToCartEvent = output<Product>();
 
   onAddToCart(): void {
-    const p = this.product();
-    if (p) {
-      this.addToCartEvent.emit(p);
-    }
+    this.addToCartEvent.emit(this.product());
   }
 }
